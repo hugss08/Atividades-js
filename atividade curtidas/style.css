@@ -1,0 +1,36 @@
+body {
+min-height: 100vh;
+display: grid;
+place-items: center;
+margin: 0;
+color: #e6edf3;
+background: #0d1117;
+font-family: Arial, sans-serif;
+}
+.publicacao {
+width: min(500px, 85%);
+padding: 30px;
+background: #161b22;
+border: 1px solid #30363d;
+border-radius: 14px;
+}
+.publicacao.curtida { border-color: #ff7b72; }
+.contador {margin-top: 25px;
+color: #8b949e;
+}
+#quantidadeCurtidas { color: #58a6ff; }
+#mensagem { color: #8b949e; }
+button {
+padding: 12px 22px;
+color: #0d1117;
+background: #58a6ff;
+border: none;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+}
+button:hover { filter: brightness(1.15); }
+button.descurtir {
+color: #ffffff;
+background: #ff7b72;
+}
