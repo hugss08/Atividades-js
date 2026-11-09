@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade — Eventos de Mouse e Teclado</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .orientacao {
+            margin-bottom: 24px;
+            color: #4b5563;
+        }
+
+        .painel {
+            margin-bottom: 24px;
+            padding: 24px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            background: white;
+        }
+
+        #area-mouse {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+            border: 3px dashed #2563eb;
+            border-radius: 10px;
+            background: #eff6ff;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #area-mouse.ponteiro-dentro {
+            background: #dcfce7;
+            border-color: #16a34a;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 2px solid #94a3b8;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .resultado {
+            margin-top: 14px;
+            padding: 12px;
+            border-left: 5px solid #7c3aed;
+            background: #f5f3ff;
+        }
+
+        code {
+            color: #7c3aed;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Laboratório de eventos</h1>
+    <p class="orientacao">
+        Implemente as tarefas no JavaScript e teste cada interação no navegador.
+    </p>
+
+    <section class="painel">
+        <h2>1. Eventos do mouse</h2>
+
+        <div id="area-mouse">
+            <p id="mensagem-mouse">Interaja com esta área.</p>
+        </div>
+
+        <div class="resultado">
+            Cliques: <strong id="total-cliques">0</strong><br>
+            Posição: <strong id="posicao-mouse">x: 0 | y: 0</strong>
+        </div>
+    </section>
+
+    <section class="painel">
+        <h2>2. Eventos do teclado</h2>
+
+        <label for="campo-teclado">Digite alguma coisa:</label>
+        <input id="campo-teclado" type="text" placeholder="Pressione uma tecla">
+
+        <div class="resultado">
+            Evento: <strong id="tipo-evento">nenhum</strong><br>
+            Tecla (<code>key</code>): <strong id="tecla">—</strong><br>
+            Código (<code>code</code>): <strong id="codigo">—</strong><br>
+            Repetida (<code>repeat</code>): <strong id="repetida">Não</strong><br>
+            Ctrl pressionado: <strong id="ctrl">Não</strong><br>
+            Shift pressionado: <strong id="shift">Não</strong>
+        </div>
+    </section>
+
+    <script>
+        "use strict";
+
+        /*
+          ATIVIDADE PRÁTICA — EVENTOS DE MOUSE E TECLADO
+
+          Regras:
+          1. Não altere o HTML nem o CSS.
+          2. Escreva as soluções abaixo de cada tarefa.
+          3. Utilize addEventListener() em todas as tarefas.
+          4. Teste cada evento no navegador.
+        */
+
+        // Selecione os elementos necessários com document.querySelector().
+        const areaMouse = document.querySelector("#area-mouse");
+        const mensagemMouse = document.querySelector("#mensagem-mouse");
+        const totalCliques = document.querySelector("#total-cliques");
+        const posicaoMouse = document.querySelector("#posicao-mouse");
+
+        const campoTeclado = document.querySelector("#campo-teclado");
+        const tipoEvento = document.querySelector("#tipo-evento");
+        const tecla = document.querySelector("#tecla");
+        const codigo = document.querySelector("#codigo");
+        const repetida = document.querySelector("#repetida");
+        const ctrl = document.querySelector("#ctrl");
+        const shift = document.querySelector("#shift");
+
+        let cliques = 0;
+
+        // ==================== EVENTOS DO MOUSE ====================
+
+        // 01. No evento click, aumente o número exibido em #total-cliques.
+        areaMouse.addEventListener("click", () => {
+            cliques++;
+            totalCliques.textContent = cliques;
+        });
+
+        // 02. No evento dblclick, zere a quantidade de cliques e informe
+        //     "Contador zerado" em #mensagem-mouse.
+        areaMouse.addEventListener("dblclick", () => {
+            cliques = 0;
+            totalCliques.textContent = cliques;
+            mensagemMouse.textContent = "Contador zerado";
+        });
+
+        // 03. No evento mousedown, mostre "Botão do mouse pressionado".
+        areaMouse.addEventListener("mousedown", () => {
+            mensagemMouse.textContent = "Botão do mouse pressionado";
+        });
+
+        // 04. No evento mouseup, mostre "Botão do mouse solto".
+        areaMouse.addEventListener("mouseup", () => {
+            mensagemMouse.textContent = "Botão do mouse solto";
+        });
+
+        // 05. No evento mouseenter, adicione à área a classe ponteiro-dentro
+        //     e mostre "O ponteiro entrou na área".
+        areaMouse.addEventListener("mouseenter", () => {
+            areaMouse.classList.add("ponteiro-dentro");
+            mensagemMouse.textContent = "O ponteiro entrou na área";
+        });
+
+        // 06. No evento mouseleave, remova a classe ponteiro-dentro
+        //     e mostre "O ponteiro saiu da área".
+        areaMouse.addEventListener("mouseleave", () => {
+            areaMouse.classList.remove("ponteiro-dentro");
+            mensagemMouse.textContent = "O ponteiro saiu da área";
+        });
+
+        // 07. No evento mousemove, mostre em #posicao-mouse os valores
+        //     evento.offsetX e evento.offsetY.
+        areaMouse.addEventListener("mousemove", (evento) => {
+            posicaoMouse.textContent = `x: ${evento.offsetX} | y: ${evento.offsetY}`;
+        });
+
+        // 08. No evento contextmenu, impeça a abertura do menu padrão com
+        //     evento.preventDefault() e mostre "Menu de contexto bloqueado".
+        areaMouse.addEventListener("contextmenu", (evento) => {
+            evento.preventDefault();
+            mensagemMouse.textContent = "Menu de contexto bloqueado";
+        });
+
+        // =================== EVENTOS DO TECLADO ===================
+
+        // 09. No evento keydown do campo, mostre:
+        //     - "keydown" em #tipo-evento;
+        //     - evento.key em #tecla;
+        //     - evento.code em #codigo;
+        //     - "Sim" ou "Não" em #repetida, conforme evento.repeat;
+        //     - "Sim" ou "Não" em #ctrl, conforme evento.ctrlKey;
+        //     - "Sim" ou "Não" em #shift, conforme evento.shiftKey.
+        campoTeclado.addEventListener("keydown", (evento) => {
+            // Desafio: o Escape limpa tudo em vez de ser exibido.
+            if (evento.key === "Escape") {
+                restaurarTeclado();
+                return;
+            }
+
+            tipoEvento.textContent = "keydown";
+            tecla.textContent = evento.key;
+            codigo.textContent = evento.code;
+            repetida.textContent = evento.repeat ? "Sim" : "Não";
+            ctrl.textContent = evento.ctrlKey ? "Sim" : "Não";
+            shift.textContent = evento.shiftKey ? "Sim" : "Não";
+        });
+
+        // 10. No evento keyup, altere somente #tipo-evento para "keyup".
+        campoTeclado.addEventListener("keyup", (evento) => {
+            // Ao soltar o Escape, #tipo-evento precisa continuar como "nenhum".
+            if (evento.key === "Escape") {
+                return;
+            }
+
+            tipoEvento.textContent = "keyup";
+        });
+
+        // DESAFIO OPCIONAL:
+        // Ao pressionar Escape, limpe o campo e restaure os resultados
+        // da seção de teclado para os valores iniciais.
+        function restaurarTeclado() {
+            campoTeclado.value = "";
+            tipoEvento.textContent = "nenhum";
+            tecla.textContent = "—";
+            codigo.textContent = "—";
+            repetida.textContent = "Não";
+            ctrl.textContent = "Não";
+            shift.textContent = "Não";
+        }
+    </script>
+</body>
+</html>

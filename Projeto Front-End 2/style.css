@@ -1,0 +1,10 @@
+body{
+    background-color: blanchedalmond;
+}
+
+h1 {
+    text-align: center;
+    background-color: rgb(8, 135, 247);
+    border-radius: 50px;
+    color: antiquewhite;
+}
