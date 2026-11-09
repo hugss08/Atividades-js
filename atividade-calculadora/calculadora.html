@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de desconto</title>
+  <link rel="stylesheet" href="./estilos.css">
+  <script src="./calculo.js" defer></script>
+  <script src="./calculadora.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Calculadora de desconto</h1>
+    <div class="grade">
+      <div>
+        <label for="preco-calc">Preço (R$)</label>
+        <input id="preco-calc" type="number" min="0" step="any">
+      </div>
+      <div>
+        <label for="desconto-calc">Desconto (%)</label>
+        <input id="desconto-calc" type="number" min="0" max="100" step="any">
+      </div>
+    </div>
+    <button id="calcular" type="button">Calcular</button>
+    <p id="saida-calc" role="status">Preencha os campos para começar.</p>
+  </main>
+</body>
+</html>

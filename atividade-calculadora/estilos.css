@@ -1,0 +1,95 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  color: #e6edf3;
+  background: #0d1117;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: min(94%, 58rem);
+  margin: 2rem auto;
+}
+
+.painel {
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #46505b;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+label,
+small {
+  display: block;
+}
+
+input,
+button {
+  font: inherit;
+  margin: .35rem 0 .65rem;
+  padding: .55rem .7rem;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #697786;
+  border-radius: .3rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid #58a6ff;
+  outline-offset: 3px;
+}
+
+.erro {
+  color: #ffb4ac;
+  min-height: 1em;
+  margin-bottom: .6rem;
+}
+
+.tabela {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+caption,
+th,
+td {
+  padding: .65rem;
+  text-align: left;
+}
+
+th,
+td {
+  border-bottom: 1px solid #46505b;
+}
+
+td button {
+  margin: .15rem;
+}
+
+@media (max-width: 34rem) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+}
