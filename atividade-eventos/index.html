@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Laboratório de eventos com JavaScript</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background-color: #0d1117;
+            color: #e6edf3;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 50px 20px;
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            color: #58a6ff;
+        }
+
+        header p {
+            color: #8b949e;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            background-color: #0d1117;
+            border-bottom: 1px solid #30363d;
+        }
+
+        nav a {
+            color: #e6edf3;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #58a6ff;
+        }
+
+        main {
+            width: min(1000px, calc(100% - 30px));
+            margin: 0 auto;
+        }
+
+        section {
+            margin: 50px 0;
+            padding: 30px;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #bc8cff;
+        }
+
+        h3 {
+            color: #58a6ff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background-color: #0d1117;
+            color: #e6edf3;
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #58a6ff;
+            outline: 2px solid #58a6ff44;
+        }
+
+        button {
+            margin: 5px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #58a6ff;
+            color: #0d1117;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button[type="reset"] {
+            background-color: #30363d;
+            color: #e6edf3;
+        }
+
+        .painel {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+        }
+
+        .painel p {
+            margin: 8px 0;
+        }
+
+        .painel strong {
+            color: #3fb950;
+        }
+
+        .ajuda {
+            padding: 15px;
+            border-left: 4px solid #58a6ff;
+            background-color: #1c2430;
+        }
+
+        .erro {
+            color: #ff7b72;
+        }
+
+        .sucesso {
+            color: #3fb950;
+        }
+
+        .espaco-rolagem {
+            min-height: 450px;
+            padding-top: 100px;
+            color: #8b949e;
+            text-align: center;
+        }
+
+        #programacao {
+            background-color: #14253a;
+            border-color: #58a6ff;
+        }
+
+        footer {
+            padding: 30px;
+            background-color: #161b22;
+            color: #8b949e;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Laboratório de eventos</h1>
+
+        <p>
+            Interface, foco, teclado e formulário com JavaScript
+        </p>
+    </header>
+
+    <nav>
+        <a href="#interface">Interface</a>
+        <a href="#foco">Foco</a>
+        <a href="#teclado">Teclado</a>
+        <a href="#formulario">Formulário</a>
+    </nav>
+
+    <main>
+        <!-- ================================================ -->
+        <!-- 1. ÁREA DOS EVENTOS DE INTERFACE                 -->
+        <!-- ================================================ -->
+
+        <section id="interface">
+            <h2>1. Eventos de interface</h2>
+
+            <p>
+                Recarregue, redimensione e role a página.
+            </p>
+
+            <div class="painel">
+                <p>
+                    Estado do DOM:
+                    <strong id="statusDom">Aguardando...</strong>
+                </p>
+
+                <p>
+                    Recursos da página:
+                    <strong id="statusLoad">Aguardando...</strong>
+                </p>
+
+                <p>
+                    Largura:
+                    <strong id="larguraTela">—</strong>
+                </p>
+
+                <p>
+                    Modo:
+                    <strong id="modoTela">—</strong>
+                </p>
+
+                <p>
+                    Rolagem:
+                    <strong id="statusRolagem">
+                        No início da página
+                    </strong>
+                </p>
+            </div>
+        </section>
+
+        <div class="espaco-rolagem">
+            <h3>Continue rolando a página</h3>
+
+            <p>
+                A seção de programação está mais abaixo.
+            </p>
+        </div>
+
+        <section id="programacao">
+            <h2>Programação do evento</h2>
+
+            <p id='mensagemRolagem' class="ajuda">
+                Se o evento <code>scroll</code> estiver implementado,
+                uma mensagem será exibida quando esta seção for alcançada.
+            </p>
+        </section>
+
+        <!-- ================================================ -->
+        <!-- 2. ÁREA DOS EVENTOS DE FOCO                      -->
+        <!-- ================================================ -->
+
+        <section id="foco">
+            <h2>2. Eventos de foco</h2>
+
+            <form id="formFoco">
+                <label for="nomeFoco">Nome:</label>
+                <input
+                    id="nomeFoco"
+                    type="text"
+                    placeholder="Digite seu nome"
+                >
+
+                <label for="emailFoco">E-mail:</label>
+                <input
+                    id="emailFoco"
+                    type="email"
+                    placeholder="Digite seu e-mail"
+                >
+
+                <label for="cursoFoco">Curso:</label>
+                <input
+                    id="cursoFoco"
+                    type="text"
+                    placeholder="Digite seu curso"
+                >
+            </form>
+
+            <p id="ajudaFoco" class="ajuda">
+                Selecione um campo para receber uma orientação.
+            </p>
+
+            <div class="painel">
+                <p>
+                    Campo atual:
+                    <strong id="campoAtual">Nenhum</strong>
+                </p>
+
+                <p>
+                    Último campo:
+                    <strong id="ultimoCampo">Nenhum</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- ================================================ -->
+        <!-- 3. ÁREA DOS EVENTOS DE TECLADO                   -->
+        <!-- ================================================ -->
+
+        <section id="teclado">
+            <h2>3. Eventos de teclado</h2>
+
+            <label for="campoTeclado">
+                Digite alguma coisa:
+            </label>
+
+            <input
+                id="campoTeclado"
+                type="text"
+                placeholder="Teste letras, Enter, Escape, Shift e Ctrl"
+            >
+
+            <div class="painel">
+                <p>
+                    Último evento:
+                    <strong id="tipoEventoTeclado">—</strong>
+                </p>
+
+                <p>
+                    Tecla:
+                    <strong id="valorTecla">—</strong>
+                </p>
+
+                <p>
+                    Código físico:
+                    <strong id="codigoTecla">—</strong>
+                </p>
+
+                <p>
+                    Tecla repetida:
+                    <strong id="teclaRepetida">—</strong>
+                </p>
+
+                <p>
+                    Ctrl pressionado:
+                    <strong id="ctrlPressionado">—</strong>
+                </p>
+
+                <p>
+                    Shift pressionado:
+                    <strong id="shiftPressionado">—</strong>
+                </p>
+            </div>
+
+            <p id="mensagemTeclado" class="ajuda">
+                Nenhum comando especial executado.
+            </p>
+        </section>
+
+        <!-- ================================================ -->
+        <!-- 4. ÁREA DOS EVENTOS DE FORMULÁRIO                -->
+        <!-- ================================================ -->
+
+        <section id="formulario">
+            <h2>4. Eventos de formulário</h2>
+
+            <form id="formInscricao">
+                <label for="nomeFormulario">Nome:</label>
+
+                <input
+                    id="nomeFormulario"
+                    type="text"
+                    required
+                >
+
+                <label for="emailFormulario">E-mail:</label>
+
+                <input
+                    id="emailFormulario"
+                    type="email"
+                    required
+                >
+
+                <small id="erroEmail"></small>
+
+                <label for="oficinaFormulario">
+                    Oficina:
+                </label>
+
+                <select
+                    id="oficinaFormulario"
+                    required
+                >
+                    <option value="">
+                        Selecione uma oficina
+                    </option>
+
+                    <option value="JavaScript">
+                        JavaScript
+                    </option>
+
+                    <option value="Inteligência Artificial">
+                        Inteligência Artificial
+                    </option>
+
+                    <option value="Desenvolvimento Web">
+                        Desenvolvimento Web
+                    </option>
+                </select>
+
+                <label for="apresentacaoFormulario">
+                    Apresentação:
+                </label>
+
+                <textarea
+                    id="apresentacaoFormulario"
+                    maxlength="100"
+                    placeholder="Conte um pouco sobre você"
+                ></textarea>
+
+                <p>
+                    Caracteres:
+                    <strong id="contadorCaracteres">0</strong>/100
+                </p>
+
+                <button type="submit">
+                    Confirmar
+                </button>
+
+                <button type="reset">
+                    Limpar
+                </button>
+
+                <p id="mensagemFormulario"></p>
+            </form>
+
+            <div class="painel">
+                <h3>Prévia da inscrição</h3>
+
+                <p>
+                    Nome:
+                    <strong id="previaNome">Não informado</strong>
+                </p>
+
+                <p>
+                    Oficina:
+                    <strong id="previaOficina">
+                        Não selecionada
+                    </strong>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Desenvolvimento Front-End II — Eventos com JavaScript
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
