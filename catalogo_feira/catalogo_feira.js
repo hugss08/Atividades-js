@@ -126,6 +126,19 @@ formProduto.addEventListener("submit", function (evento) {
 const produtos = [];
 let proximoId = 1;
 
+const alternarEditor = document.querySelector("#alternar-editor");
+const editor = document.querySelector("#editor");
+
+alternarEditor.addEventListener("click", function () {
+  editor.classList.toggle("oculto");
+
+  if (editor.classList.contains("oculto")) {
+    alternarEditor.textContent = "Mostrar formulário";
+  } else {
+    alternarEditor.textContent = "Ocultar formulário";
+  }
+});
+
 function cadastrarProduto() {
   const produto = {
     id: proximoId,
