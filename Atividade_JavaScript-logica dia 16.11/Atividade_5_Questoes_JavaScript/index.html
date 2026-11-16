@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atividade prática de JavaScript | Front-End II</title>
+  <script src="script.js" defer></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f1f5f9; color: #18324b; font: 1rem/1.6 system-ui, sans-serif; }
+    main { width: min(100% - 2rem, 54rem); margin: 2.5rem auto 4rem; }
+    header { padding: 1.8rem; border-radius: 1rem; background: #132f48; color: #fff; }
+    header p, h1 { margin: 0; }
+    header p + h1 { margin-top: .4rem; }
+    h1 { line-height: 1.15; font-size: clamp(1.75rem, 5vw, 2.6rem); }
+    header .curso { color: #b9d8ed; font-size: .95rem; }
+    header .ordem { margin-top: .85rem; }
+    header code { color: #e7f6ff; }
+    section { margin-top: 1rem; padding: 1.3rem 1.5rem; border: 1px solid #ccd9e5; border-radius: .8rem; background: #fff; }
+    .familia { margin: 0; color: #0c655d; font-weight: 700; }
+    h2 { margin: .12rem 0 .5rem; font-size: 1.4rem; line-height: 1.25; }
+    code { font-family: ui-monospace, monospace; font-size: .94em; color: #15466b; }
+    .demo { margin-top: .8rem; padding: .8rem 1rem; border-radius: .6rem; background: #edf4f9; }
+    .demo p, .demo ul { margin: .45rem 0; }
+    .campos { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+    label { display: block; font-weight: 600; }
+    input { display: block; width: 100%; margin-top: .25rem; padding: .48rem .65rem; border: 1px solid #829bb0; border-radius: .4rem; font: inherit; }
+    button { margin-top: .65rem; padding: .45rem .8rem; border: 0; border-radius: .4rem; background: #154c72; color: #fff; font: inherit; cursor: pointer; }
+    :focus-visible { outline: .15rem solid #008477; outline-offset: .18rem; }
+    .oculto { display: none; }
+    .teste { margin-bottom: 0; color: #314c64; }
+    #retorno-cadastro { color: #8e2d24; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="curso">IFPI · Campus São Raimundo Nonato · Desenvolvimento Front-End II</p>
+      <h1>Atividade prática de JavaScript</h1>
+      <p class="ordem">Resolva as cinco situações completando apenas as funções indicadas em <code>script.js</code>. Abra esta página no navegador e teste cada função. Os eventos já estão registrados.</p>
+    </header>
+
+    <section aria-labelledby="questao-interface">
+      <p class="familia">Questão 1 · Interface</p>
+      <h2 id="questao-interface">Identificar o tamanho da janela</h2>
+      <p>O usuário quer saber se a janela está em modo compacto. Implemente <code>atualizarModoTela()</code>: use <code>window.innerWidth</code> e mostre <strong>Tela compacta</strong> quando a largura for menor que 768 px ou <strong>Tela ampla</strong> quando for maior ou igual a 768 px.</p>
+      <div class="demo">
+        <p id="modo-tela">Aguardando atualização.</p>
+      </div>
+      <p class="teste"><strong>Teste:</strong> a mensagem deve aparecer ao abrir a página e mudar ao redimensionar a janela. Confira as larguras de 767 px e 768 px.</p>
+    </section>
+
+    <section aria-labelledby="questao-foco">
+      <p class="familia">Questão 2 · Foco</p>
+      <h2 id="questao-foco">Mostrar uma dica no campo</h2>
+      <p>O usuário quer ver uma dica apenas enquanto o campo de reserva estiver em foco. Complete <code>alternarDica(evento)</code>. No <code>focus</code>, remova a classe <code>oculto</code> da dica. No <code>blur</code>, coloque a classe de volta. Use <code>evento.type</code> para distinguir os dois casos.</p>
+      <div class="demo">
+        <label for="nome-reserva">Nome para a reserva</label>
+        <input id="nome-reserva" type="text" aria-describedby="dica-reserva">
+        <small id="dica-reserva" class="oculto">Digite o nome de quem vai usar a reserva.</small>
+      </div>
+      <p class="teste"><strong>Teste:</strong> chegue ao campo com Tab, digite um nome e pressione Tab de novo. A dica deve aparecer e depois sumir. O texto digitado deve permanecer.</p>
+    </section>
+
+    <section aria-labelledby="questao-mouse">
+      <p class="familia">Questão 3 · Clique</p>
+      <h2 id="questao-mouse">Calcular o preço com desconto</h2>
+      <p>O usuário quer saber quanto vai pagar ao clicar em <strong>Calcular</strong>. Implemente <code>mostrarPrecoFinal()</code>: leia os dois campos preenchidos, converta os valores com <code>Number()</code>, calcule o desconto e exiba o preço final. Use a função pronta <code>formatarMoeda(valor)</code> para exibir o resultado.</p>
+      <div class="demo">
+        <div class="campos">
+          <div>
+            <label for="preco-calculo">Preço (R$)</label>
+            <input id="preco-calculo" type="number" value="80" min="0" step="0.01">
+          </div>
+          <div>
+            <label for="desconto-calculo">Desconto (%)</label>
+            <input id="desconto-calculo" type="number" value="25" min="0" max="100">
+          </div>
+        </div>
+        <button id="calcular" type="button">Calcular</button>
+        <p id="resultado-calculo" role="status">Informe os valores e clique em Calcular.</p>
+      </div>
+      <p class="teste"><strong>Teste:</strong> preço 80 com 25% de desconto deve mostrar <strong>Preço final: R$ 60,00</strong>. Com preço 50 e desconto 0%, deve mostrar <strong>Preço final: R$ 50,00</strong>. Use entradas válidas nesta questão.</p>
+    </section>
+
+    <section aria-labelledby="questao-teclado">
+      <p class="familia">Questão 4 · Teclado</p>
+      <h2 id="questao-teclado">Buscar produtos ao pressionar Enter</h2>
+      <p>O usuário quer digitar parte de um nome e pressionar Enter para buscar. Implemente <code>buscarProdutos(evento)</code>. Só ao detectar Enter, filtre o array <code>produtosBusca</code> pelo nome. Ignore diferenças entre maiúsculas e minúsculas e os espaços nas pontas da busca. Passe os itens encontrados para <code>mostrarResultados(itens)</code>, que já está pronta.</p>
+      <div class="demo">
+        <label for="busca-produtos">Parte do nome do produto</label>
+        <input id="busca-produtos" type="search">
+        <ul id="resultados-busca" aria-label="Resultados da busca"></ul>
+      </div>
+      <p class="teste"><strong>Teste:</strong> digite <code> CA </code> (com espaços). A lista só muda após Enter e passa a mostrar <strong>Caderno</strong> e <strong>Caneta azul</strong>. Apague a busca e pressione Enter para voltar aos quatro produtos.</p>
+    </section>
+
+    <section aria-labelledby="questao-formulario">
+      <p class="familia">Questão 5 · Formulário</p>
+      <h2 id="questao-formulario">Cadastrar apenas produtos válidos</h2>
+      <p>O usuário quer guardar um produto preenchendo nome e preço. Complete <code>cadastrarProduto(evento)</code>. Ao enviar, aceite nome com pelo menos dois caracteres após <code>trim()</code> e preço informado, numérico e maior ou igual a zero. Se algum dado for inválido, mostre <strong>Confira o nome e o preço.</strong> e não cadastre. Se estiver válido, adicione o objeto <code>{ nome, preco }</code> ao array <code>cadastrados</code>, chame <code>mostrarCadastro()</code>, limpe o aviso e restaure os campos.</p>
+      <div class="demo">
+        <form id="form-cadastro" novalidate>
+          <div class="campos">
+            <div>
+              <label for="nome-cadastro">Nome do produto</label>
+              <input id="nome-cadastro" type="text" required minlength="2">
+            </div>
+            <div>
+              <label for="preco-cadastro">Preço (R$)</label>
+              <input id="preco-cadastro" type="number" required min="0" step="0.01">
+            </div>
+          </div>
+          <button type="submit">Cadastrar</button>
+        </form>
+        <p id="retorno-cadastro" role="status"></p>
+        <ul id="lista-cadastro" aria-label="Produtos cadastrados"></ul>
+      </div>
+      <p class="teste"><strong>Teste:</strong> <strong>Copo</strong> com o preço vazio deve dar erro. <strong>Copo</strong> com preço <strong>0</strong> deve aparecer na lista com <strong>R$ 0,00</strong> e os campos devem ficar vazios.</p>
+    </section>
+  </main>
+</body>
+</html>
